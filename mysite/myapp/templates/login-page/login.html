@@ -34,7 +34,7 @@
 
 			<div class="table_cell half right">
 				<div class="content black">
-					<form action="action_page.php" method="post">
+					<form  method="post">
 						<div class="imgcontainer">
 							<img src="../../static/images/boyLoginPage.png" alt="Avatar" class="avatar">
 							<img src="../../static/images/girlLoginPage.png" alt="Avatar" class="avatar">
@@ -48,17 +48,27 @@
 							<input type="password" placeholder="Enter Password" name="psw" required>
 
 							<button type="submit">Login</button>
-							<button type="submit">Check in as guest</button>
-							<label>
-								<input type="checkbox" checked="checked" name="remember"> Remember me
-							</label>
-						</div>
-
-						<div class="container" >
-							<button type="button" class="cancelbtn">Cancel</button>
-							<span class="psw">Forgot <a href="#">password?</a></span>
+							
+							
 						</div>
 					</form>
+					
+					<div class=" container">
+						<label>
+							<input type="" checked="checked" name="remember"> Remember me
+						</label>checkbox
+						<button type="submit">Check in as guest</button>
+					</div>
+
+					<div class="container" >
+					<form action="../Signup-Page/Signup-page.html" method="post">
+						<button type="submit">Sign Up</button>
+					</form>
+
+					<button type="button" class="cancelbtn">Cancel</button>
+					<span class="psw">Forgot <a href="#">password?</a></span>
+					</div>
+
 				</div>
 			</div>
 		</div>

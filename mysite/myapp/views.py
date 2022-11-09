@@ -13,3 +13,6 @@ def say_hello(request):
 
 def show_html(request):
     return render(request, 'login-page/login.html')
+
+def show_signup_page(request):
+    return render(request, 'signup/signup-page.html')

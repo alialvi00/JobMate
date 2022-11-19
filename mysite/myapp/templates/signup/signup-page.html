@@ -3,12 +3,12 @@
 <html>
 <head>
   <link href="../../static/styles.css" rel="stylesheet" type="text/css" />
-  <script src=""login-func.js></script>
+  <script src="../../static/login-func.js"></script>
 </head>
  <body>
   <div class="table_cell half right">
     <div class="content black">
-      <form action="../login-page/login.html" method="get">
+      <form  onsubmit="return checkPassword(this)"  action="../login-page/login.html"  method="get">
         <div class="imgcontainer">
           <img src="../../static/images/boyLoginPage.png" alt="Avatar" class="avatar">
           <img src="../../static/images/girlLoginPage.png" alt="Avatar" class="avatar">
@@ -22,10 +22,10 @@
           <input type="email" placeholder="Enter Email Adrress" name="uname" required>
 
           <label for="psw"><b>Password</b></label>
-          <input type="password" placeholder="Enter Password" name="psw" required>
+          <input type="password" placeholder="Enter Password" name="psw" id = "psw" required>
 
           <label for="repsw"><b>Re-Enter password</b>
-            <input type="text" placeholder="Re-Enter password" name="repsw" required>   
+            <input type="password" placeholder="Re-Enter password" name="repsw" id ="repsw" required>   
             <span id='message'></span> 
           </label>
           
@@ -41,7 +41,7 @@
           <button type="submit">Check in as guest</button>
           <button type="button" class="cancelbtn"><a href="../login-page/login.html">Cancel</a></button>
         </div>
-      
+
     </div>
   </div>
     </body>

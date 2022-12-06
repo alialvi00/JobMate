@@ -1,0 +1,214 @@
+a{
+	color:#fff;
+	transition:color 1s;
+}
+a:hover{
+	color:#812727;
+}
+h2{
+	font-size:50px;
+	margin:0px;
+	font-weight: 100;
+}
+h3{
+	font-size:25px;
+	margin:0px;
+	font-weight: 100;
+}
+body{
+	background:#00203fff;
+	/* background:url('images/background.jpg'); */
+	background-attachment:fixed;
+	background-size: 100%;
+	color:#fff;
+	font-family: Century Gothic,CenturyGothic,AppleGothic,sans-serif; 
+    font-weight:100;
+	-webkit-font-smoothing: antialiased;
+	margin:0px;
+}
+hr{
+	width:40%;
+	border:1px solid #fff;
+	
+}
+.page_wrapper{
+	margin-top:5%;
+	display:table;
+	width:100%;
+}
+.header{
+	text-align:center;
+	font-size:30px;
+	margin-top:20px;
+	text-decoration:underline;
+	
+}
+.navigation_wrapper{
+	width:80%;
+	margin:0px auto;
+}
+.logo{
+	display: inline;
+	font-size:25px;
+}
+.navigation{
+	margin-left:10%;
+	display: inline;
+}
+.navigation a{
+	text-decoration:none;
+	padding:13px;
+}
+.navigation a:hover{
+	text-decoration:none;
+	padding:13px;
+	color:#000;
+	background:#fff
+}
+.table{
+	display:table;
+	width:100%;
+	margin:0px auto;
+}
+.table_cell{
+	display:table-cell;
+	vertical-align: top;
+	text-align:center;
+}
+.half{
+	width:50%;
+}
+.quater{
+	width:25%;
+}
+.right{
+	border-left:1px solid #fff;
+}
+.white{
+	background:#fff;
+}
+.float_message{
+	margin-left:10%;
+}
+.content{
+	margin:10%;
+	margin-left: 20%;
+	margin-right: 20%;
+}
+.drop{
+	width:30px;
+	float:right;
+	
+}
+.footer{
+	padding-top:20px;
+	border-top:1px solid #fff;
+	width:30%;
+	margin:0px auto;
+	margin-top:100px;
+	margin-bottom:100px;
+}
+
+
+/*Login Styling*/
+#login{
+	overflow:hidden;
+}
+outer_table{
+	background:none;
+	width:100%;
+}
+inner_table{
+	background:none;
+	width:100%;
+	padding-bottom: 50px;
+	padding-top: 50px;
+}
+#main{
+	background:none;
+}
+.white::after{
+	content: "";
+	position: absolute;
+	margin-left: 10%;
+	border-width: 15px 15px 0;
+	border-style: solid;
+	border-color: #fff transparent;
+	display: block;
+	width: 0;
+	margin-top: -1px;
+}
+/* Bordered form */
+
+
+/* Full-width inputs */
+input[type=text] , input[type=password] , input[type=email] {
+  color : black;
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+/* Set a style for all buttons */
+button {
+  background-color: #04AA6D;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+/* Add a hover effect for buttons */
+button:hover {
+  opacity: 0.8;
+}
+
+/* Extra style for the cancel button (red) */
+.cancelbtn {
+  width: auto;
+  padding: 10px 18px;
+  background-color: #f44336;
+}
+
+/* Center the avatar image inside this container */
+.imgcontainer {
+  text-align: center;
+  margin: 24px 0 12px 0;
+}
+
+/* Avatar image */
+img.avatar {
+  width: 40%;
+  border-radius: 50%;
+}
+
+/* Add padding to containers */
+.container {
+  padding: 16px;
+}
+
+/* The "Forgot password" text */
+span.psw {
+  color:red;
+  float: right;
+  padding-top: 16px;
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+  span.psw {
+    display: block;
+    float: none;
+  }
+  .cancelbtn {
+    width: 100%;
+  }
+}
+
+
+

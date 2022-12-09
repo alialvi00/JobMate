@@ -57,7 +57,8 @@
 
 					<div class="container" >
 					<button type="submit">Check in as guest</button>
-					<form action="../signup/signup-page.html" method="post">
+					<form action="/signup/" method="post">
+						{% csrf_token %}
 						<button type="submit">Sign Up</button>
 					</form>
 					<span class="psw">Forgot <a href="#">password?</a></span>

@@ -8,24 +8,31 @@
  <body>
   <div class="table_cell half right">
     <div class="content black">
-      <form  onsubmit="return checkPassword(this)"  action="../login-page/login.html"  method="get">
+      <form  onsubmit="return checkPassword(this)"  action=""  method="POST">
+        {% csrf_token %}
         <div class="imgcontainer">
           <img src="../../static/images/boyLoginPage.png" alt="Avatar" class="avatar">
           <img src="../../static/images/girlLoginPage.png" alt="Avatar" class="avatar">
         </div>
         
         <div class="container">
-          <label for="uname"><b>Username</b></label>
-          <input type="text" placeholder="Enter Full Name" name="uname" required>
+          <label for="fname"><b>First Name</b></label>
+          {{form.first_name}}
 
-          <label for="uname"><b>Email</b></label>
-          <input type="email" placeholder="Enter Email Adrress" name="uname" required>
+          <label for ="lname"><b>Last Name</b></label>
+          {{form.last_name}}
+
+          <label for="uname"><b>User Name</b></label>
+          {{form.username}}
+
+          <label for="email"><b>Email</b></label>
+          {{form.email}}
 
           <label for="psw"><b>Password</b></label>
-          <input type="password" placeholder="Enter Password" name="psw" id = "psw" required>
+          {{form.password1}}
 
           <label for="repsw"><b>Re-Enter password</b>
-            <input type="password" placeholder="Re-Enter password" name="repsw" id ="repsw" required>   
+            {{form.password2}}
             <span id='message'></span> 
           </label>
           
@@ -39,10 +46,24 @@
 
         <div class="container" >
           <button type="submit">Check in as guest</button>
-          <button type="button" class="cancelbtn"><a href="../login-page/login.html">Cancel</a></button>
+          <button type="button" class="cancelbtn"><a href="/loginPage">Cancel</a></button>
         </div>
 
     </div>
   </div>
+  <script>
+
+    var form_fields = document.getElementsByTagName('input')
+    form_fields[1].placeholder='First Name..';
+    form_fields[2].placeholder='Last Name..';
+    form_fields[3].placeholder='Username..';
+    form_fields[4].placeholder='Email..';
+    form_fields[5].placeholder='Enter password...';
+    form_fields[6].placeholder="Re-enter password...";
+
+    for(var field in form_fields){
+      form_fields[field].className += ' form-control'
+    }
+  </script>
     </body>
 </html>

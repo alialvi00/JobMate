@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>JobMate Resume Upload Page</title>
+<style>
+body {
+    background-color: #00203fff;
+  }
+  #file-upload {
+    display: none;
+  }
+
+  .upload-drop-zone {
+    height: 200px;
+	width: 500px;
+    border: 15px solid #ccc;
+    line-height: 200px;
+    text-align: center;
+    font-size: 28px;
+    color: #ccc;
+    margin-left: 39%;
+
+  }
+
+  .upload-preview {
+    margin-top: 20px;
+	color: white
+  }
+
+  .upload-preview .file-name {
+    font-weight: bold;
+    margin-bottom: 10px;
+    font-size: 28px;
+  }
+
+  .pdf-preview {
+    margin-left: 23.5%;
+	margin-right: 32.5%;
+    width: 50%;
+    height: 800px;
+  }
+
+  .delete-file {
+    font-size: 30px;
+    color: red;
+    cursor: pointer;
+  }
+  
+  .jobmatelogo {
+	margin-left: 41.5%;
+    width: 358px;
+	height: 363px;
+  }
+
+  .big-upload-button {
+    height: 40px;
+    width: 200px;
+  
+  }
+
+  .top-section {
+    height: 17vh;
+    background-color: white;
+  }
+
+   h1{
+      font-size: 30px;
+      color: white;
+      font-weight: bold;
+      font-family: Century Gothic,CenturyGothic,AppleGothic,sans-serif; 
+   }
+</style>
+</head>
+<body>
+    <div class="top-section">
+        <img src="../../static/images/jobmate.png" alt="My Image" class="jobmatelogo">
+      </div>
+
+
+<h1>Welcome, Let's get started!</h1>
+<h1>Please upload your resume using the dropbox below</h1>
+<h1>Accepted formats: pdf, doc, doc.x</h1>
+<form action="/upload" method="post" enctype="multipart/form-data">
+  <div class="upload-drop-zone" id="drop-zone">
+    Drag and Drop your Resume OR: 
+    <button type="button" id="file-browse">Browse</button>
+  </div>
+  <input type="file" id="file-upload" name="file-upload" accept=".pdf, .doc, .docx" multiple>
+  <div class="upload-preview"></div>
+  <h1>Once Your Desired Resume Has Been Uploaded Please Click Upload To Continue</h1>
+  <input type="submit" value="Upload" class= "big-upload-button">
+</form>
+
+<script>
+
+  var dropZone = document.getElementById('drop-zone');
+  var fileUpload = document.getElementById('file-upload');
+  var fileBrowse = document.getElementById('file-browse');
+  var preview = document.querySelector('.upload-preview');
+
+  fileUpload.addEventListener('change', function(e) {
+    var files = e.target.files;
+    handleFiles(files);
+  });
+
+  dropZone.addEventListener('dragover', function(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'copy';
+    dropZone.classList.add('drop');
+  });
+
+  dropZone.addEventListener('dragleave', function(e) {
+    e.stopPropagation();
+	e.preventDefault();
+    dropZone.classList.remove('drop');
+  });
+
+  dropZone.addEventListener('drop', function(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    var files = e.dataTransfer.files;
+    handleFiles(files);
+    dropZone.classList.remove('drop');
+  });
+
+  fileBrowse.addEventListener('click', function(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    fileUpload.click();
+  });
+
+  function handleFiles(files) {
+    for (var i = 0; i < files.length; i++) {
+      var file = files[i];
+      var option = document.createElement('option');
+      option.value = file.name;
+      option.text = file.name;
+      fileUpload.appendChild(option);
+
+      if (file.type === 'application/pdf') {
+        var div = document.createElement('div');
+        div.classList.add('pdf-file');
+
+
+        var deleteButton = document.createElement('span');
+        deleteButton.classList.add('delete-file');
+        deleteButton.textContent = 'Delete Current File';
+        deleteButton.addEventListener('click', function(e) {
+          div.parentNode.removeChild(div);
+          option.parentNode.removeChild(option);
+          fileUpload.value = '';
+        });
+        div.appendChild(deleteButton);
+
+        var fileName = document.createElement('p');
+        fileName.classList.add('file-name');
+        fileName.textContent = file.name;
+        div.appendChild(fileName);
+
+        var object =document.createElement('object');
+        object.classList.add('pdf-preview');
+        object.setAttribute('type', 'application/pdf');
+        object.setAttribute('data', URL.createObjectURL(file) + '#page=1&zoom=80');
+        object.setAttribute('title', file.name);
+
+        div.appendChild(object);
+        preview.appendChild(div);
+      }
+    }
+  }
+</script>
+
+</body>
+</html>
+

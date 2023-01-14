@@ -39,6 +39,11 @@ INSTALLED_APPS = [
     "myapp"
 ]
 
+AUTH_USER_MODEL = 'myapp.Profile'
+
+AUTHENTICATION_BACKENDS = ("myapp.backends.login_backend",)
+
+
 SITE_ID = 1
 
 MIDDLEWARE = [

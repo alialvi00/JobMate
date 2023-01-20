@@ -20,7 +20,7 @@ def login_page(request):
 
         if user is not None:
             login(request, user)
-            return redirect('home-page/home_page.html')
+            return redirect('/homePage')
         else:
             messages.info(request, 'Username or Password is incorrect, please try again!')
 
@@ -48,3 +48,7 @@ def signup_page(request):
 
     context = {'form': form}
     return render(request, 'signup/signup-page.html', context)
+
+
+def redirect_home_page(request):
+    return render(request, 'home-page/home-page.html')

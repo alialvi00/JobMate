@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Job Mate</title>
+  <link rel="stylesheet" type="text/css" href="../../static/jobsearchstyle.css">
+  
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="#">Home</a>
+      <a href="#">Profile</a>
+    </nav>
+  </header>
+
+  <div class="form-container">
+    <form id="filter-form" class="filter-form">
+      <label for="job-board-filter">Job Board:</label>
+      <select id="job-board-filter">
+          <option value="Linkedin">Linkedin</option>
+          <option value="Glassdoor">Glassdoor</option>
+          <option value="Both">Both</option>
+      </select>
+      <label for="country-filter">Country:</label>
+      <input type="text" id="country-filter" style="margin-bottom:10px;padding:5px;">
+      <label for="city-filter">City:</label>
+      <input type="text" id="city-filter" style="margin-bottom:10px;padding:5px;">
+    <button type="submit">Search</button>
+    </form>
+  </div>
+  
+  <h2 id="job-list-heading">Job Listings</h2>
+  <div id="job-list-container"></div>
+
+  <footer>
+    <p>JobMate</p>
+  </footer>
+  <script src="../../static/jobsearch-func.js"></script>
+</body>
+</html>

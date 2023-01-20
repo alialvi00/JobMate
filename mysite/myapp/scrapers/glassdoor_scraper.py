@@ -53,7 +53,7 @@ for i in job_links:
         job = (employer_name, job_location, job_details, joburl)
         # writing all scraped information to json
 
-        keys = ['Job TItle: ', 'Employer name: ', 'Job Location: ', 'Job Details: ', 'Link To Job: ']
+        keys = ['Job Title:', 'Employer name: ', 'Job Location: ', 'Job Details: ', 'Link To Job: ']
         duplicates = []
         if job_details not in duplicates:
             duplicates.append(job_details)

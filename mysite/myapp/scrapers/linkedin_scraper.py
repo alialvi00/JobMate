@@ -1,13 +1,8 @@
 import requests
 from bs4 import BeautifulSoup as soup
-import csv
-import random
 
-# Create a file called jobs.csv, create writer object to write to file, and set initial headers for csv file
-file = open("jobs.csv", "w", newline="", encoding="utf-8")
-writer = csv.writer(file)
-initial_headers = ("Job Title", "Employer Name", "Job Location", "Job Details", "Job URL")
-writer.writerow(initial_headers)
+import random
+import json
 
 # setting headers required for http requests
 user_agents = [
@@ -25,9 +20,20 @@ user_agents = [
 user_agent = random.choice(user_agents)
 headers = {'User-Agent': user_agent}
 
+#retrieving designations from parsed user resume
+with open('../sample_resources/resumeInfo.json') as json_file:
+    data = json.load(json_file)
+
+
+#constructing url
+linkedin = "http://www.linkedin.com/jobs/search?keywords="
+keywords = data['designation']
+for i in range(len(keywords)):
+    linkedin += keywords[i] + "%20"
+#still need to add country and city
+
 # url below is for now, eventually update with user info in url request
-url = "https://ca.linkedin.com/jobs/search?keywords=software%20developer&location=Nepean%2C%20Ontario%2C%20Canada" \
-      "&geoId=&trk=homepage-jobseeker_jobs-search-bar_search-submit&position=1&pageNum=0 "
+url = linkedin.replace(" ", "")
 html = requests.get(url)
 
 # create beautiful soup object for parsing html returned from requests
@@ -37,11 +43,10 @@ bsobj = soup(html.content, "lxml")
 job_links = bsobj.find_all("div", {"class": "base-card relative w-full hover:no-underline focus:no-underline "
                                             "base-card--link base-search-card base-search-card--link "
                                             "job-search-card"})
-
+joblist = []
 for i in job_links:
     for a in i.find_all('a', href=True):
         joburl = a['href']
-
         result = requests.get(joburl, headers=headers)
         if result.status_code == 200:
             job_bsobj = soup(result.content, "lxml")
@@ -64,7 +69,16 @@ for i in job_links:
                 "class": "top-card-layout__title font-sans text-lg papabear:text-xl font-bold leading-open "
                          "text-color-text mb-0 topcard__title"}).text
 
-            # writing all scraped information to csv
-            file = open("jobs.csv", "a", newline="")
-            job = (employer_name, job_location, job_details, joburl)
-            writer.writerow(job)
+            # writing all scraped information to json
+
+            keys = ['Job Title:', 'Employer name: ', 'Job Location: ', 'Job Details: ', 'Link To Job: ']
+            duplicates = []
+            if job_details not in duplicates:
+                duplicates.append(job_details)
+                values = [job_title.replace("\n", "").strip(),employer_name.replace("\n", "").strip(), job_location.replace("\n", "").strip(), job_details.replace("\n", "").strip(), joburl.replace("\n", "").strip()]
+                jobs = dict(zip(keys, values))
+                joblist.append(jobs)
+
+top_level_data = {"Jobs": joblist}
+with open('jsonOutputs/linkedin_jobs.json', 'a') as outfile:
+    json.dump(top_level_data, outfile, indent=4)

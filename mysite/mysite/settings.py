@@ -83,9 +83,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'jobMate_userAccounts',
-        'USER': 'ali',
-        'PASSWORD': 'jobMate_ali',
-        'HOST': 'localhost',
+        'USER': 'postgres',
+        'PASSWORD': 'jobMate_project',
+        'HOST': 'jobmate-useraccounts.cpc2leb5crkl.us-east-1.rds.amazonaws.com',
         'PORT': '5432'
     }
 }

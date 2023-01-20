@@ -80,5 +80,5 @@ for i in job_links:
                 joblist.append(jobs)
 
 top_level_data = {"Jobs": joblist}
-with open('jsonOutputs/linkedin_jobs.json', 'a') as outfile:
+with open('jsonOutputs/linkedin_jobs.json', 'w') as outfile:
     json.dump(top_level_data, outfile, indent=4)

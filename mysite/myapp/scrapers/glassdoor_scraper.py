@@ -25,7 +25,7 @@ def glassDoorScraper(country, city):
         data = json.load(json_file)
 
     # constructing url
-    glassdoor = "glassdoor.com/Job/jobs.htm?sc.keyword="
+    glassdoor = "http://glassdoor.com/Job/jobs.htm?sc.keyword="
     keywords = data['designation']
 
     glassdoor += keywords[0] + "%20"

@@ -1,3 +1,4 @@
+import json
 import time
 
 from django.shortcuts import render, redirect
@@ -70,6 +71,9 @@ def resume_upload(request):
 
         # Use .json to read the json object
         print(parsed_resume.json())
+
+        with open('myapp/scrapers/jsonOutputs/resume_received.json', 'w') as outfile:
+            json.dump(parsed_resume.json(), outfile, indent=4)
 
         return redirect('/homePage')
 

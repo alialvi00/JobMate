@@ -18,12 +18,11 @@ user_agents = [
 user_agent = random.choice(user_agents)
 headers = {'User-Agent': user_agent}
 
-#retrieving designations from parsed user resume
+# retrieving designations from parsed user resume
 with open('../sample_resources/resumeInfo.json') as json_file:
     data = json.load(json_file)
 
-
-#constructing url
+# constructing url
 glassdoor = "http://glassdoor.com/Job/jobs.htm?sc.keyword="
 keywords = data['designation']
 
@@ -57,7 +56,7 @@ for i in job_links:
         duplicates = []
         if job_details not in duplicates:
             duplicates.append(job_details)
-            values = [job_title.replace("\n", "").strip(),employer_name.replace("\n", "").strip(),
+            values = [job_title.replace("\n", "").strip(), employer_name.replace("\n", "").strip(),
                       job_location.replace("\n", "").strip(), job_details.replace("\n", "").strip(),
                       joburl.replace("\n", "").strip()]
             jobs = dict(zip(keys, values))

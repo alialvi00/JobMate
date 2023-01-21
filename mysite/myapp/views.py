@@ -1,5 +1,4 @@
 import json
-import time
 
 from django.shortcuts import render, redirect
 from .forms import CreateUserForm
@@ -7,6 +6,8 @@ from django.contrib import messages
 from django.contrib.auth import login
 from myapp.backends import login_backend
 from base64 import b64encode
+from .scrapers.linkedin_scraper import linkedInScraper as li
+from .scrapers.glassdoor_scraper import glassDoorScraper as gs
 import requests
 
 # Create your views here.
@@ -79,3 +80,18 @@ def resume_upload(request):
 
     return render(request, 'resume-upload-page/resume-upload-page.html')
 
+
+def find_job(request):
+    if request.method == 'POST':
+        country = request.POST.get('country')
+        city = request.POST.get('city')
+        job_board = request.POST.get('job-board')
+        if job_board == "Linkedin":
+            li(country, city)
+        elif job_board == "Glassdoor":
+            gs(country, city)
+        elif job_board == "Both":
+            li(country, city)
+            gs(country, city)
+
+    return render(request, 'job-search-page/jobsearchpage.html')

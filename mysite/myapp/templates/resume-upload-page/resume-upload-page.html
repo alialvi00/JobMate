@@ -80,7 +80,8 @@ body {
 <h1>Welcome, Let's get started!</h1>
 <h1>Please upload your resume using the dropbox below</h1>
 <h1>Accepted formats: pdf, doc, doc.x</h1>
-<form action="/upload" method="post" enctype="multipart/form-data">
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
   <div class="upload-drop-zone" id="drop-zone">
     Drag and Drop your Resume OR: 
     <button type="button" id="file-browse">Browse</button>

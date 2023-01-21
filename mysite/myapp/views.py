@@ -1,8 +1,12 @@
+import time
+
 from django.shortcuts import render, redirect
 from .forms import CreateUserForm
 from django.contrib import messages
 from django.contrib.auth import login
 from myapp.backends import login_backend
+from base64 import b64encode
+import requests
 
 # Create your views here.
 # view class takes a request and returns a response (What an HTTP request would do)
@@ -52,3 +56,22 @@ def signup_page(request):
 
 def redirect_home_page(request):
     return render(request, 'home-page/home-page.html')
+
+
+def resume_upload(request):
+    if request.method == 'POST':
+        uploaded_resume = request.FILES['file-upload'].read()
+        resume_b64 = b64encode(uploaded_resume)
+        r = requests.post('http://127.0.0.1:2000/sendResume', resume_b64)
+        print(r.status_code, r.reason)
+
+        parsed_resume = requests.get('http://127.0.0.1:2000/receiveParsedData')
+        print(r.status_code, r.reason)
+
+        # Use .json to read the json object
+        print(parsed_resume.json())
+
+        return redirect('/homePage')
+
+    return render(request, 'resume-upload-page/resume-upload-page.html')
+

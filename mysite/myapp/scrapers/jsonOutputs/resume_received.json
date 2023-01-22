@@ -1,0 +1,50 @@
+{
+    "college_name": null,
+    "company_names": null,
+    "degree": null,
+    "designation": [
+        "Cloud"
+    ],
+    "email": "sample@hotmail.com",
+    "experience": [
+        ""
+    ],
+    "mobile_number": "",
+    "name": "sample sample",
+    "no_of_pages": 2,
+    "skills": [
+        "Matlab",
+        "C++",
+        "Aws",
+        "Ai",
+        "Process",
+        "Budget",
+        "System",
+        "Java",
+        "Cloud",
+        "Os",
+        "Software engineering",
+        "Testing",
+        "Programming",
+        "Selenium",
+        "Visual",
+        "Communication",
+        "C",
+        "Windows",
+        "Flask",
+        "Strategy",
+        "Debugging",
+        "Perl",
+        "Test cases",
+        "Automation",
+        "Github",
+        "Api",
+        "Python",
+        "Engineering",
+        "Linux",
+        "Yaml",
+        ".net",
+        "Django"
+    ],
+    "total_experience": 0.0
+}

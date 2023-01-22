@@ -1,5 +1,7 @@
 import json
+import re
 
+from bs4 import BeautifulSoup
 from django.shortcuts import render, redirect
 from .forms import CreateUserForm
 from django.contrib import messages
@@ -88,10 +90,96 @@ def find_job(request):
         job_board = request.POST.get('job-board')
         if job_board == "Linkedin":
             li(country, city)
+            updateHTML("linkedin")
         elif job_board == "Glassdoor":
             gs(country, city)
+            updateHTML("glassdoor")
         elif job_board == "Both":
             li(country, city)
             gs(country, city)
+            updateHTML("both")
+        return render(request, 'job-search-page/jobsearchpage_withjobs.html')
 
     return render(request, 'job-search-page/jobsearchpage.html')
+
+
+def updateHTML(jobsFile):
+    with open("myapp/templates/job-search-page/jobsearchpage.html", "r") as file:
+        bsobj = (BeautifulSoup(file, "html.parser"))
+        link = "myapp/scrapers/jsonOutputs/"
+        if jobsFile=="linkedin":
+            with open("myapp/scrapers/jsonOutputs/linkedin_jobs.json", 'r') as f:
+                data = json.load(f)
+            for i in data["Jobs"]:
+                joblistcontainer = bsobj.find(id="job-list-container")
+                new_div = bsobj.new_tag("div")
+                new_div["class"] = "job-listing"
+                h2 = bsobj.new_tag("h2")
+                jobtitle = i['Job Title:']
+                h2.string = jobtitle
+                new_div.append(h2)
+                p1 = bsobj.new_tag("h2")
+                employername = i['Employer name: ']
+                p1.string = re.sub(r'[^\x00-\x7F]+', '', employername)
+                new_div.append(p1)
+                p2 = bsobj.new_tag("h2")
+                joblocation = i['Job Location: ']
+                p2.string = joblocation
+                new_div.append(p2)
+                new_div2 = bsobj.new_tag("div")
+                new_div2["class"] = "job-description-container"
+                new_div.append(new_div2)
+                new_div3 = bsobj.new_tag("div")
+                new_div3["class"] = "job-description"
+                new_div2.append(new_div3)
+                details = bsobj.new_tag("h4")
+                jobdetails = i['Job Details: ']
+                val = re.sub(r'[^\x00-\x7F]+', '', jobdetails)
+                details.string = val
+                new_div3.append(details)
+                joblink = i['Link To Job: ']
+                new_a = bsobj.new_tag("a", href=joblink)
+                new_a.string = "View Job"
+                new_div3.append(new_a)
+                joblistcontainer.append(new_div)
+                bsobj.body.append(joblistcontainer)
+        if jobsFile=="glassdoor":
+            with open("myapp/scrapers/jsonOutputs/glassdoor_jobs.json", 'r') as f:
+                data = json.load(f)
+                if(len(data["Jobs"])!=0):
+                    for i in data["Jobs"]:
+                        joblistcontainer = bsobj.find(id="job-list-container")
+                        new_div = bsobj.new_tag("div")
+                        new_div["class"] = "job-listing"
+                        h2 = bsobj.new_tag("h2")
+                        jobtitle = i['Job Title:']
+                        h2.string = jobtitle
+                        new_div.append(h2)
+                        p1 = bsobj.new_tag("h2")
+                        employername = i['Employer name: ']
+                        p1.string = re.sub(r'[^\x00-\x7F]+', '', employername)
+                        new_div.append(p1)
+                        p2 = bsobj.new_tag("h2")
+                        joblocation = i['Job Location: ']
+                        p2.string = joblocation
+                        new_div.append(p2)
+                        new_div2 = bsobj.new_tag("div")
+                        new_div2["class"] = "job-description-container"
+                        new_div.append(new_div2)
+                        new_div3 = bsobj.new_tag("div")
+                        new_div3["class"] = "job-description"
+                        new_div2.append(new_div3)
+                        details = bsobj.new_tag("h4")
+                        jobdetails = i['Job Details: ']
+                        val = re.sub(r'[^\x00-\x7F]+', '', jobdetails)
+                        details.string = val
+                        new_div3.append(details)
+                        joblink = i['Link To Job: ']
+                        new_a = bsobj.new_tag("a", href=joblink)
+                        new_a.string = "View Job"
+                        new_div3.append(new_a)
+                        joblistcontainer.append(new_div)
+                        bsobj.body.append(joblistcontainer)
+
+        with open("myapp/templates/job-search-page/jobsearchpage_withjobs.html", "w") as file:
+            file.write(str(bsobj))

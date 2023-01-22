@@ -3,35 +3,62 @@
   <head>
     <title>Home Page</title>
     <style>
-      button {
+        img {
+max-width: 50% ;
+height: auto;
+display: block;
+margin: 0 auto;
+padding: 10px;
+border-radius: 50%;
+background-color: #ffffff;
+border: 3px solid #000000;
+transition: all 0.2s ease-in-out;
+}
+
+img:hover {
+transform: scale(1.1);
+}
+    button {
         background-color: #4CAF50;
         border: none;
         color: white;
-        padding: 30px 60px;
+        padding: 10px 20px;
         text-align: center;
         text-decoration: none;
         display: inline-block;
         font-size: 20px;
-        margin: 50px;
+        margin: 20px;
         cursor: pointer;
-      }
-      .container {
-        text-align: center;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		height: 100vh;
-      }
-	  body {
-		background-color: #00203fff;
-	  }
-	  h1{
-		color: white;
-	  }
-    </style>
-  </head>
-  <body>
+        border-radius: 5px;
+        transition: all 0.2s ease-in-out;
+    }
 
+    button:hover {
+        background-color: #3E8E41;
+        transform: scale(1.1);
+    }
+
+    .container {
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        height: 100vh;
+    }
+
+    body {
+        background-color: #00203fff;
+    }
+
+    h1 {
+        color: white;
+        font-size: 36px;
+        margin-bottom: 50px;
+    }
+
+</style>
+  </head>
     <div class="container">
       <h1>Welcome to JobMate!</h1>
       <button onclick="window.location.href = '/job-search';">Find a Job</button>

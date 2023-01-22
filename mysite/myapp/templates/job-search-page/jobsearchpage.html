@@ -13,6 +13,10 @@
     </nav>
   </header>
 
+  <div class="img-container">
+    <img src="../../static/images/jobmate.png">
+  </div>
+
   <div class="form-container">
     <form method="post" id="filter-form" class="filter-form">
       {% csrf_token %}
@@ -30,11 +34,12 @@
     </form>
   </div>
   
-  <h2 id="job-list-heading">Job Listings</h2>
+  <h1 id="job-list-heading">Job Listings</h1>
   <div id="job-list-container"></div>
 
   <footer>
     <p>JobMate</p>
   </footer>
+  <script src="../../static/jobsearch-func.js"></script>
 </body>
 </html>

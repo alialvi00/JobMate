@@ -1,3 +1,5 @@
+import re
+
 import requests
 from bs4 import BeautifulSoup as soup
 import random
@@ -51,6 +53,7 @@ def glassDoorScraper(country, city):
             employer_name = job_bsobj.find("div", {"data-test": "employer-name"}).text
             job_location = job_bsobj.find("div", {"class": "css-1v5elnn e11nt52q2"}).text
             job_details = job_bsobj.find("div", {"class": "desc css-58vpdc ecgq1xb5"}).text
+            job_details = re.sub(r'[^\w\s]', '', job_details)
             job = (employer_name, job_location, job_details, joburl)
             # writing all scraped information to json
 

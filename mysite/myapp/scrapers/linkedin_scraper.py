@@ -1,3 +1,5 @@
+import re
+
 import requests
 from bs4 import BeautifulSoup as soup
 
@@ -55,7 +57,8 @@ def linkedInScraper(country, city):
                 # job details fetch
                 job_details = job_bsobj.find_all("div", {"class": "show-more-less-html__markup"})
                 if len(job_details) > 0:
-                    job_details = job_details[0].text
+                    filtered_text = re.sub(r'[^\w\s]', '', job_details[0].text)
+                    job_details = filtered_text
 
                 # employer name fetch
                 employer_name = job_bsobj.find_all("a", {"class": "topcard__org-name-link topcard__flavor--black-link"})

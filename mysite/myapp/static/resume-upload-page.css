@@ -1,0 +1,107 @@
+h1,h2{
+    color: white;
+    text-align: center;
+}
+
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    background-color: #00203fff;
+  }
+  
+  /* Add a container for the entire page */
+  .page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+  }
+  
+  /* Add a container for the header */
+  .header-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 50px;
+  }
+  
+  /* Add a container for the upload section */
+  .upload-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    max-width: 600px;
+  }
+  #drop-zone-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+  
+  /* Style the upload drop zone */
+  .upload-drop-zone {
+    height: 200px;
+    width: 100%;
+    border: 15px solid #ccc;
+    line-height: 200px;
+    text-align: center;
+    font-size: 28px;
+    color: #ccc;
+    margin-bottom: 50px;
+  }
+  
+  /* Style the upload preview */
+  .upload-preview {
+    color: white;
+  }
+  
+  /* Style the jobmate logo */
+.jobmate-logo {
+  width: 100px;
+  height: 100px;
+  margin-right: 20px;
+}
+
+/* Style the upload button */
+.big-upload-button {
+  height: 40px;
+  width: 200px;
+  margin-top: 20px;
+  background-color: #0077c9;
+  color: white;
+  font-size: 18px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Add a hover effect to the upload drop zone */
+.upload-drop-zone:hover {
+  border-color: #0077c9;
+  color: #0077c9;
+  cursor: pointer;
+}
+
+/* Add a container for the logo and title */
+.logo-title-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Position the logo */
+  .jobmate-logo {
+    width: 300px;
+    height: 250px;
+    margin: auto;
+  }
+  
+  
+  
+   
+  

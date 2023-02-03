@@ -23,10 +23,12 @@
           {{form.last_name}}
 
           <label for="uname"><b>User Name</b></label>
-          {{form.username}}
+          {{form.user_name}}
 
-          <label for="email"><b>Email</b></label>
-          {{form.email}}
+           <div class="fieldWrapper">
+               <label for="email"><b>Email</b></label>
+               {{form.email}}
+           </div>
 
           <label for="psw"><b>Password</b></label>
           {{form.password1}}
@@ -61,7 +63,7 @@
     form_fields[5].placeholder='Enter password...';
     form_fields[6].placeholder="Re-enter password...";
 
-    for(var field in form_fields){
+    for(const field in form_fields){
       form_fields[field].className += ' form-control'
     }
   </script>

@@ -35,6 +35,7 @@
 			<div class="table_cell half right">
 				<div class="content black">
 					<form  method="post">
+                        {% csrf_token %}
 						<div class="imgcontainer">
 							<img src="../../static/images/boyLoginPage.png" alt="Avatar" class="avatar">
 							<img src="../../static/images/girlLoginPage.png" alt="Avatar" class="avatar">
@@ -54,6 +55,10 @@
 							
 						</div>
 					</form>
+
+                    {%  for message in messages %}
+                        <p id="messages">{{ message }}</p>
+                    {%  endfor %}
 
 					<div class="container" >
 					<button type="submit">Check in as guest</button>

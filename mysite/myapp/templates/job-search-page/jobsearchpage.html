@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<title>Job Mate</title>
+<link href="../../static/jobsearchstyle.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<header>
+<nav>
+<a href="#">Home</a>
+<a href="#">Profile</a>
+</nav>
+</header>
+<div class="img-container">
+<img src="../../static/images/jobmate.png"/>
+</div>
+<div class="form-container">
+<form class="filter-form" id="filter-form" method="post">
+      {% csrf_token %}
+      <label for="job-board-filter">Job Board:</label>
+<select id="job-board-filter" name="job-board">
+<option value="Linkedin">Linkedin</option>
+<option value="Glassdoor">Glassdoor</option>
+<option value="Both">Both</option>
+</select>
+<label for="country-filter">Country:</label>
+<input id="country-filter" name="country" style="margin-bottom:10px;padding:5px;" type="text"/>
+<label for="city-filter">City:</label>
+<input id="city-filter" name="city" style="margin-bottom:10px;padding:5px;" type="text"/>
+<button type="submit">Search</button>
+</form>
+</div>
+<h1 id="job-list-heading">Job Listings</h1>
+<div id="job-list-container"></div>
+

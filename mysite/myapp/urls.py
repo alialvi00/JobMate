@@ -7,5 +7,6 @@ urlpatterns = [
     path('signup/', views.signup_page),
     path('homePage/', views.redirect_home_page),
     path('resume-upload/', views.resume_upload, name='resume_upload'),
-    path('job-search/', views.find_job, name='job-search')
+    path('job-search/', views.find_job, name='job-search'),
+    path('rate-resume/', views.rate_resume, name='rate-resume')
 ]

@@ -1,4 +1,5 @@
 import json
+import os
 import re
 
 from bs4 import BeautifulSoup
@@ -11,6 +12,8 @@ from base64 import b64encode
 from .scrapers.linkedin_scraper import linkedInScraper as li
 from .scrapers.glassdoor_scraper import glassDoorScraper as gs
 import requests
+from django.shortcuts import render, redirect
+from django.core.files.storage import default_storage
 
 # Create your views here.
 # view class takes a request and returns a response (What an HTTP request would do)
@@ -65,6 +68,11 @@ def redirect_home_page(request):
 def resume_upload(request):
     if request.method == 'POST':
         uploaded_resume = request.FILES['file-upload'].read()
+        pdf_file = request.FILES['file-upload']
+        file_name, file_extension = os.path.splitext(pdf_file.name)
+        new_file_name = 'current_resume' + file_extension
+        default_storage.save(new_file_name, pdf_file)
+
         resume_b64 = b64encode(uploaded_resume)
         r = requests.post('http://127.0.0.1:2000/sendResume', resume_b64)
         print(r.status_code, r.reason)
@@ -265,3 +273,6 @@ def updateHTML(jobsFile):
         if jobsFile == "both":
             bothSearch(bsobj)
 
+
+def rate_resume(request):
+    return render(request, 'rate-resume/rate-resume.html')

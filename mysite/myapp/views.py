@@ -2,8 +2,8 @@ import json
 import os
 import re
 
+import language_tool_python
 from bs4 import BeautifulSoup
-from django.shortcuts import render, redirect
 from .forms import CreateUserForm
 from django.contrib import messages
 from django.contrib.auth import login
@@ -14,12 +14,12 @@ from .scrapers.glassdoor_scraper import glassDoorScraper as gs
 import requests
 from django.shortcuts import render, redirect
 from django.core.files.storage import default_storage
-
+from PIL import Image
+import fitz
 # Create your views here.
 # view class takes a request and returns a response (What an HTTP request would do)
 # think of view class as a request handler
 # action class
-from django.views.decorators.csrf import ensure_csrf_cookie
 
 
 def login_page(request):
@@ -67,12 +67,12 @@ def redirect_home_page(request):
 
 def resume_upload(request):
     if request.method == 'POST':
+
         uploaded_resume = request.FILES['file-upload'].read()
         pdf_file = request.FILES['file-upload']
         file_name, file_extension = os.path.splitext(pdf_file.name)
         new_file_name = 'current_resume' + file_extension
         default_storage.save(new_file_name, pdf_file)
-
         resume_b64 = b64encode(uploaded_resume)
         r = requests.post('http://127.0.0.1:2000/sendResume', resume_b64)
         print(r.status_code, r.reason)
@@ -275,4 +275,46 @@ def updateHTML(jobsFile):
 
 
 def rate_resume(request):
-    return render(request, 'rate-resume/rate-resume.html')
+    # image = Image.open('current_resume.pdf')
+    # image.save('preview.png', 'PNG')
+    doc = fitz.open('media/current_resume.pdf')
+    text = ""
+    for page in doc:
+        text += page.get_text()
+    tool = language_tool_python.LanguageTool('en-US')
+    matches = tool.check(text)
+    with open("myapp/templates/rate-resume/rate-resume.html", "r") as thisFile:
+        soup = BeautifulSoup(thisFile, "html.parser")
+        container = soup.find("div", class_="container")
+        table = soup.new_tag("table", id="my-table")
+        tr1 = soup.new_tag("tr")
+        td1_1 = soup.new_tag("td")
+        td1_1.string = "Type of Potential Issue"
+        td1_2 = soup.new_tag("td")
+        td1_2.string = "Line to Check"
+        td1_3 = soup.new_tag("td")
+        td1_3.string = "Suggestions"
+        tr1.append(td1_1)
+        tr1.append(td1_2)
+        tr1.append(td1_3)
+        table.append(tr1)
+        for match in matches:
+            if(match.ruleIssueType != "whitespace"):
+                new_row = soup.new_tag("tr")
+                tdType = soup.new_tag("td")
+                tdLine = soup.new_tag("td")
+                tdSuggestion = soup.new_tag("td")
+                tdType.string = match.message
+                str_en = match.context.encode("ascii", "ignore")
+                str_de = str_en.decode()
+                tdLine.string = str_de
+                tdSuggestion.string = match.replacements[0]
+                new_row.append(tdType)
+                new_row.append(tdLine)
+                new_row.append(tdSuggestion)
+                table.append(new_row)
+            container.append(table)
+
+        with open("myapp/templates/rate-resume/rate-resume-with-issues.html", "w") as finalFile:
+            finalFile.write(str(soup))
+    return render(request, 'rate-resume/rate-resume-with-issues.html')

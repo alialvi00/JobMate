@@ -1,10 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html>
+<meta charset=utf-8 />
+  <head>
+    <title>Rate My Resume Page</title>
+    <style>
+        img {
+        max-width: 10% ;
+        height: auto;
+        display: block;
+        margin: 0 auto;
+        padding: 10px;
+        border-radius: 50%;
+        background-color: #ffffff;
+        border: 3px solid #000000;
+        transition: all 0.2s ease-in-out;
+        }
 
-</body>
-</html>
+    img:hover {
+      transform: scale(1.1);
+    }
+
+    button {
+        background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 20px;
+        margin: 20px;
+        cursor: pointer;
+        border-radius: 5px;
+        transition: all 0.2s ease-in-out;
+    }
+
+    button:hover {
+        background-color: #3E8E41;
+        transform: scale(1.1);
+    }
+
+    .container {
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        height: 100vh;
+    }
+
+    body {
+        background-color: #00203fff;
+    }
+
+    h1 {
+        color: white;
+        font-size: 36px;
+        margin-bottom: 50px;
+    }
+     table {
+    border-collapse: collapse;
+    width: 100%;
+    }
+        th, td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: left;
+      }
+
+    th, tr {
+        color: white;
+        font-size: 26px;
+
+    }
+
+</style>
+  </head>
+  <body>
+    <div class="container">
+      <img src="../../static/images/jobmate.png">
+        <object data="/media/current_resume.pdf" type="application/pdf" width="50%" height="800">
+        </object>
+        <p><a href="path/to/your/file.pdf" download>Download PDF</a></p>
+        <h1>Here are some potential issues we've found with your resume: </h1>

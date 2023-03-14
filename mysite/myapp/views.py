@@ -16,6 +16,7 @@ from django.shortcuts import render, redirect
 from django.core.files.storage import default_storage
 from PIL import Image
 import fitz
+from jobtopdf import jobtopdf
 # Create your views here.
 # view class takes a request and returns a response (What an HTTP request would do)
 # think of view class as a request handler
@@ -140,6 +141,12 @@ def linkedInSearch(bsobj):
         val = re.sub(r'[^\x00-\x7F]+', '', jobdetails)
         details.string = val
         new_div3.append(details)
+        new_div4 = bsobj.new_tag("div")
+        new_div4["class"] = "suggestion"
+        suggestions = bsobj.new_tag("h4")
+        suggestions.string = jobtopdf.attach(i)
+        new_div4.append(suggestions)
+        new_div3.append(new_div4)
         joblink = i['Link To Job: ']
         new_a = bsobj.new_tag("a", href=joblink)
         new_a.string = "View Job"
@@ -205,6 +212,9 @@ def bothSearch(bsobj):
         p1.string = re.sub(r'[^\x00-\x7F]+', '', employername)
         new_div.append(p1)
         p2 = bsobj.new_tag("h2")
+        ratio = i['Similarity ratio : ']
+        h2.string = ratio
+        new_div.append(h2)
         joblocation = i['Job Location: ']
         p2.string = joblocation
         new_div.append(p2)

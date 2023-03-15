@@ -16,6 +16,9 @@ from django.shortcuts import render, redirect
 from django.core.files.storage import default_storage
 from PIL import Image
 import fitz
+from .jobtopdf import attach as attach
+from .jobtopdf import runscript as run
+from .jobtopdf import createJson as createJson
 # Create your views here.
 # view class takes a request and returns a response (What an HTTP request would do)
 # think of view class as a request handler
@@ -111,41 +114,52 @@ def find_job(request):
     return render(request, 'job-search-page/jobsearchpage.html')
 
 def linkedInSearch(bsobj):
+    run()
+    createJson()
     with open("myapp/scrapers/jsonOutputs/linkedin_jobs.json", 'r') as f:
         data = json.load(f)
+    x = 0 
     for i in data["Jobs"]:
-        joblistcontainer = bsobj.find(id="job-list-container")
-        new_div = bsobj.new_tag("div")
-        new_div["class"] = "job-listing"
-        h2 = bsobj.new_tag("h2")
-        jobtitle = i['Job Title:']
-        h2.string = jobtitle
-        new_div.append(h2)
-        p1 = bsobj.new_tag("h2")
-        employername = i['Employer name: ']
-        p1.string = re.sub(r'[^\x00-\x7F]+', '', employername)
-        new_div.append(p1)
-        p2 = bsobj.new_tag("h2")
-        joblocation = i['Job Location: ']
-        p2.string = joblocation
-        new_div.append(p2)
-        new_div2 = bsobj.new_tag("div")
-        new_div2["class"] = "job-description-container"
-        new_div.append(new_div2)
-        new_div3 = bsobj.new_tag("div")
-        new_div3["class"] = "job-description"
-        new_div2.append(new_div3)
-        details = bsobj.new_tag("h4")
-        jobdetails = i['Job Details: ']
-        val = re.sub(r'[^\x00-\x7F]+', '', jobdetails)
-        details.string = val
-        new_div3.append(details)
-        joblink = i['Link To Job: ']
-        new_a = bsobj.new_tag("a", href=joblink)
-        new_a.string = "View Job"
-        new_div3.append(new_a)
-        joblistcontainer.append(new_div)
-        bsobj.body.append(joblistcontainer)
+        if x <= 9:
+            joblistcontainer = bsobj.find(id="job-list-container")
+            new_div = bsobj.new_tag("div")
+            new_div["class"] = "job-listing"
+            h2 = bsobj.new_tag("h2")
+            jobtitle = i['Job Title:']
+            h2.string = jobtitle
+            new_div.append(h2)
+            p1 = bsobj.new_tag("h2")
+            employername = i['Employer name: ']
+            p1.string = re.sub(r'[^\x00-\x7F]+', '', employername)
+            new_div.append(p1)
+            p2 = bsobj.new_tag("h2")
+            joblocation = i['Job Location: ']
+            p2.string = joblocation
+            new_div.append(p2)
+            new_div2 = bsobj.new_tag("div")
+            new_div2["class"] = "job-description-container"
+            new_div.append(new_div2)
+            new_div3 = bsobj.new_tag("div")
+            new_div3["class"] = "job-description"
+            new_div2.append(new_div3)
+            details = bsobj.new_tag("h4")
+            jobdetails = i['Job Details: ']
+            val = re.sub(r'[^\x00-\x7F]+', '', jobdetails)
+            details.string = val
+            new_div3.append(details)
+            new_div4 = bsobj.new_tag("div")
+            new_div4["class"] = "suggestion"
+            suggestions = bsobj.new_tag("ratio")
+            suggestions.string = attach(x)
+            x = x + 1
+            new_div4.append(suggestions)
+            new_div3.append(new_div4)
+            joblink = i['Link To Job: ']
+            new_a = bsobj.new_tag("a", href=joblink)
+            new_a.string = "View Job"
+            new_div3.append(new_a)
+            joblistcontainer.append(new_div)
+            bsobj.body.append(joblistcontainer)
     with open("myapp/templates/job-search-page/jobsearchpage_withjobs.html", "w") as file:
         file.write(str(bsobj))
 
@@ -205,6 +219,9 @@ def bothSearch(bsobj):
         p1.string = re.sub(r'[^\x00-\x7F]+', '', employername)
         new_div.append(p1)
         p2 = bsobj.new_tag("h2")
+        ratio = i['Similarity ratio : ']
+        h2.string = ratio
+        new_div.append(h2)
         joblocation = i['Job Location: ']
         p2.string = joblocation
         new_div.append(p2)

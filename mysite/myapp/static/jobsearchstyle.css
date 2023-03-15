@@ -112,6 +112,22 @@ footer {
     display: block;
 }
 
+.suggestion h4 {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0;
+}
+.suggestion ratio {
+  font-size: 14px;
+  margin: 10px 0;
+}
+.suggestion {
+  background-color: #f2f2f2;
+  border: 1px solid #ddd;
+  padding: 10px;
+  margin-top: 10px;
+}
+
 .img-container {
   text-align: center; 
 }
